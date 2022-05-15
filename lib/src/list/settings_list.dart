@@ -31,6 +31,7 @@ class SettingsList extends StatelessWidget {
     this.brightness,
     this.contentPadding,
     this.applicationType = ApplicationType.material,
+    this.maxWidth = double.infinity,
     Key? key,
   }) : super(key: key);
 
@@ -43,6 +44,7 @@ class SettingsList extends StatelessWidget {
   final EdgeInsetsGeometry? contentPadding;
   final List<AbstractSettingsSection> sections;
   final ApplicationType applicationType;
+  final double maxWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +68,7 @@ class SettingsList extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       alignment: Alignment.center,
       child: ConstrainedBox(
-        constraints: BoxConstraints(maxWidth: 810),
+        constraints: BoxConstraints(maxWidth: this.maxWidth),
         child: SettingsTheme(
           themeData: themeData,
           platform: platform,

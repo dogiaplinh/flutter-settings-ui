@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
-import 'package:settings_ui/src/utils/settings_theme.dart';
 
 class AndroidSettingsTile extends StatelessWidget {
   const AndroidSettingsTile({
@@ -118,28 +117,39 @@ class AndroidSettingsTile extends StatelessWidget {
                     ),
                   ),
                 ),
-                // if (tileType == SettingsTileType.switchTile)
-                //   SizedBox(
-                //     height: 30,
-                //     child: VerticalDivider(),
-                //   ),
-                if (trailing != null)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: trailing!,
+                if (trailing != null && tileType == SettingsTileType.switchTile)
+                  Row(
+                    children: [
+                      trailing!,
+                      Padding(
+                        padding: const EdgeInsetsDirectional.only(end: 8),
+                        child: Switch(
+                          value: initialValue,
+                          onChanged: onToggle,
+                          activeColor: enabled
+                              ? activeSwitchColor
+                              : theme.themeData.inactiveTitleColor,
+                        ),
+                      ),
+                    ],
                   )
                 else if (tileType == SettingsTileType.switchTile)
                   Padding(
                     padding:
                         const EdgeInsetsDirectional.only(start: 16, end: 8),
-                    child: Switch.adaptive(
+                    child: Switch(
                       value: initialValue,
                       onChanged: onToggle,
                       activeColor: enabled
                           ? activeSwitchColor
                           : theme.themeData.inactiveTitleColor,
                     ),
-                  ),
+                  )
+                else if (trailing != null)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: trailing!,
+                  )
               ],
             ),
           ),

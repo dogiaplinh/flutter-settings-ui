@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:settings_ui/src/sections/abstract_settings_section.dart';
 import 'package:settings_ui/src/utils/platform_utils.dart';
@@ -91,13 +88,12 @@ class SettingsList extends StatelessWidget {
       case DevicePlatform.android:
       case DevicePlatform.fuchsia:
       case DevicePlatform.linux:
-        return EdgeInsets.only(top: 0);
       case DevicePlatform.iOS:
       case DevicePlatform.macOS:
       case DevicePlatform.windows:
-        return EdgeInsets.symmetric(vertical: 20);
+        return EdgeInsets.symmetric(vertical: 0);
       case DevicePlatform.web:
-        return EdgeInsets.zero;
+        return EdgeInsets.symmetric(vertical: 20);
       case DevicePlatform.device:
         throw Exception(
           'You can\'t use the DevicePlatform.device in this context. '
@@ -117,7 +113,7 @@ class SettingsList extends StatelessWidget {
       case ApplicationType.cupertino:
         return cupertinoBrightness;
       case ApplicationType.both:
-        return kIsWeb || !Platform.isIOS
+        return platform != DevicePlatform.iOS
             ? materialBrightness
             : cupertinoBrightness;
     }
